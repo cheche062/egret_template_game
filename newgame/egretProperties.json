@@ -3,7 +3,16 @@
   "compilerVersion": "5.2.18",
   "template": {},
   "target": {
-    "current": "web"
+    "current": "wxgame"
+  },
+  "eui": {
+    "exmlRoot": [
+      "resource/eui_skins"
+    ],
+    "themes": [
+      "resource/default.thm.json"
+    ],
+    "exmlPublishPolicy": "commonjs"
   },
   "modules": [
     {
