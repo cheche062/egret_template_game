@@ -43,7 +43,14 @@ class Main extends eui.UILayer {
         //预加载preload资源组
         await RES.loadGroup("preload");
 
+        //实例化Http请求
+        // App.Http.initServer(HttpConst.HttpUrl);
 
+        // 加载线上数据
+
+        //发布资源加载完毕消息
+
+        // 初始化音效
 
     }
 
@@ -65,15 +72,18 @@ class Main extends eui.UILayer {
         // let resExt = PublishResAddr == '' ? '' : (ConstData.Isdebug ? '_test_' + "1.4.0" : '_' + "1.4.0");
         let resExt = "_1.4.0";
         let resPath = `${PublishResAddr}resource${resExt}`;
-        bbs.Version.checkRes('res_version', `${resPath}/online.ver.json`)
-            .then(res => {
-                Log.log(`res_version: check(${res})`);
-                if (res == bbs.VersionCheckResult.localOld) {
-                    bbs.Version.clearRes();
-                }
-                bbs.Version.loadResComplete();
-                return Promise.resolve();
-            });
+
+        return new Promise((resolve, reject) => {
+            bbs.Version.checkRes('res_version', `${resPath}/online.ver.json`)
+                .then(res => {
+                    Log.log(`res_version: check(${res})`);
+                    if (res == bbs.VersionCheckResult.localOld) {
+                        bbs.Version.clearRes();
+                    }
+                    bbs.Version.loadResComplete();
+                    resolve();
+                });
+        })
     }
 
     private async runGame() {
