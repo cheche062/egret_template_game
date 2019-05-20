@@ -1,5 +1,10 @@
 
 class Main extends eui.UILayer {
+    /**资源配置文件*/
+    private loadconfig_list:{url:string, resourceRoot:string}[] = [
+        {url: "resource/default.res.json", resourceRoot: "resource/"} 
+    ];
+
     protected createChildren(): void {
         super.createChildren();
 
@@ -28,8 +33,7 @@ class Main extends eui.UILayer {
         //模块初始化
         this.initModule();
 
-        //加载资源配置文件
-        await this.loadResConfig();
+        await ResourceUtils.instance.loadConfig(this.loadconfig_list);
 
         //加载loading资源组
         await RES.loadGroup("loading");
@@ -41,7 +45,7 @@ class Main extends eui.UILayer {
         await this.checkRes();
 
         //预加载preload资源组
-        await RES.loadGroup("preload");
+        await ResourceUtils.instance.loadGroup("preload");
 
         //实例化Http请求
         // App.Http.initServer(HttpConst.HttpUrl);
@@ -52,14 +56,6 @@ class Main extends eui.UILayer {
 
         // 初始化音效
 
-    }
-
-    private loadResConfig() {
-        return new Promise((resolve, reject) => {
-            RES.loadConfig("resource/default.res.json", "resource/").then(() => {
-                resolve();
-            })
-        })
     }
 
     private checkRes() {
