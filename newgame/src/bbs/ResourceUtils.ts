@@ -67,7 +67,6 @@ class ResourceUtils {
         if (this._groupsEvents[groupName]) {
             var success: Function = this._groupsEvents[groupName].success;
             var thisObject: any = this._groupsEvents[groupName].thisObject;
-
             if (success) {
                 success && success.call(thisObject, event);
                 this._groupsEvents[groupName] = null;
@@ -102,11 +101,8 @@ class ResourceUtils {
         if (this._groupsEvents[groupName]) {
             var error: Function = this._groupsEvents[groupName].error;
             var thisObject: any = this._groupsEvents[groupName].thisObject;
-
             if (error) {
                 error && error.call(thisObject, event);
-                this._groupsEvents[groupName] = null;
-                delete this._groupsEvents[groupName];
             }
         }
     }
